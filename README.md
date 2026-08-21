@@ -26,7 +26,7 @@ The widget uses your existing opencode authentication: it reads the `opencode-go
 1. Clone the repo:
 
 ```bash
-git clone https://github.com/<your-username>/opencode-go-tray-widget.git
+git clone https://github.com/GodJeam/opencode-go-tray-widget.git
 cd opencode-go-tray-widget
 ```
 
