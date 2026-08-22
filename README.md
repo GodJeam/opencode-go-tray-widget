@@ -1,6 +1,6 @@
-﻿# OpenCode Go Tray Widget
+# OpenCode Go Tray Widget
 
-A lightweight **Windows 11 system tray widget** that shows your **OpenCode Go** usage limits (5-hour rolling, weekly, and monthly) at a glance â€” no need to open the console in a browser.
+A lightweight **Windows 11 system tray widget** that shows your **OpenCode Go** usage limits (5-hour rolling, weekly, and monthly) at a glance - no need to open the console in a browser.
 
 > **Note**: this project was entirely generated using large language models (LLMs) via opencode. The code received **little personal review**: use it with due caution, test it, and report or fix any issues you find.
 
@@ -69,11 +69,12 @@ which returns the status, percentage, and reset time for each window. The API ke
 
 ## Structure
 
-- `opencode-tray.ps1` â€” tray icon, flyout UI, polling timer, and API calls
-- `launch-widget.vbs` â€” launcher that starts the widget without a visible console window
-- `LICENSE` â€” GPL-3.0 license text
+- `opencode-tray.ps1` - tray icon, flyout UI, polling timer, and API calls
+- `launch-widget.vbs` - launcher that starts the widget without a visible console window
+- `LICENSE` - GPL-3.0 license text
 
 ## License
 
-GPL-3.0 â€” see [LICENSE](LICENSE).
+GPL-3.0 - see [LICENSE](LICENSE).
+
 
