@@ -231,8 +231,8 @@ namespace OcWidget {
             $f.Controls.Add($lblUpd)
 
             Add-FlyoutRow $f 52  '5 hours'       $u.rolling
-            Add-FlyoutRow $f 110 'Settimanale' $u.weekly
-            Add-FlyoutRow $f 168 'Mensile'     $u.monthly
+            Add-FlyoutRow $f 110 'Weekly' $u.weekly
+            Add-FlyoutRow $f 168 'Monthly'     $u.monthly
         }
         else {
             $errLbl = New-Object System.Windows.Forms.Label
@@ -303,6 +303,7 @@ namespace OcWidget {
 catch {
     Write-Log ("FATAL ERROR: " + $_.Exception.Message + " | " + $_.InvocationInfo.PositionMessage)
 }
+
 
 
 
