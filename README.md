@@ -1,6 +1,6 @@
-# OpenCode Go Tray Widget
+﻿# OpenCode Go Tray Widget
 
-A lightweight **Windows 11 system tray widget** that shows your **OpenCode Go** usage limits (5-hour rolling, weekly, and monthly) at a glance — no need to open the console in a browser.
+A lightweight **Windows 11 system tray widget** that shows your **OpenCode Go** usage limits (5-hour rolling, weekly, and monthly) at a glance â€” no need to open the console in a browser.
 
 > **Note**: this project was entirely generated using large language models (LLMs) via opencode. The code received **little personal review**: use it with due caution, test it, and report or fix any issues you find.
 
@@ -30,29 +30,29 @@ git clone https://github.com/GodJeam/opencode-go-tray-widget.git
 cd opencode-go-tray-widget
 ```
 
-2. Double-click `avvia-widget.vbs` (or run it from a terminal):
+2. Double-click `launch-widget.vbs` (or run it from a terminal):
 
 ```powershell
-wscript.exe avvia-widget.vbs
+wscript.exe launch-widget.vbs
 ```
 
 A colored dot appears in the system tray (it may be inside the hidden icons overflow, next to the clock).
 
 ### Start at login (optional)
 
-Create a shortcut to `avvia-widget.vbs` in the Startup folder:
+Create a shortcut to `launch-widget.vbs` in the Startup folder:
 
 ```powershell
 $ws = New-Object -ComObject WScript.Shell
 $lnk = $ws.CreateShortcut("$env:APPDATA\Microsoft\Windows\Start Menu\Programs\Startup\OpenCode Widget.lnk")
-$lnk.TargetPath = "<path-to>\avvia-widget.vbs"
+$lnk.TargetPath = "<path-to>\launch-widget.vbs"
 $lnk.Save()
 ```
 
 ## Usage
 
 - **Left-click** the tray icon: opens/closes the flyout panel with the three usage bars.
-- **Right-click**: context menu with *Aggiorna* (refresh), *Dettagli* (flyout), *Apri Console* (opens the OpenCode console), and *Esci* (quit).
+- **Right-click**: context menu with **Refresh**, **Details** (flyout), **Open Console** (opens the OpenCode console), and **Exit**.
 - Press `Esc` or click elsewhere to close the flyout.
 - Logs are written to `%TEMP%\opencode-widget.log` for troubleshooting.
 
@@ -69,10 +69,11 @@ which returns the status, percentage, and reset time for each window. The API ke
 
 ## Structure
 
-- `opencode-tray.ps1` — tray icon, flyout UI, polling timer, and API calls
-- `avvia-widget.vbs` — launcher that starts the widget without a visible console window
-- `LICENSE` — GPL-3.0 license text
+- `opencode-tray.ps1` â€” tray icon, flyout UI, polling timer, and API calls
+- `launch-widget.vbs` â€” launcher that starts the widget without a visible console window
+- `LICENSE` â€” GPL-3.0 license text
 
 ## License
 
-GPL-3.0 — see [LICENSE](LICENSE).
+GPL-3.0 â€” see [LICENSE](LICENSE).
+

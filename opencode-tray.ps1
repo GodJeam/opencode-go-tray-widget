@@ -1,4 +1,4 @@
-# OpenCode Go - Usage Tray Widget (flyout dark)
+﻿# OpenCode Go - Usage Tray Widget (flyout dark)
 $ErrorActionPreference = 'Stop'
 $logFile = Join-Path $env:TEMP 'opencode-widget.log'
 
@@ -9,7 +9,7 @@ function Write-Log([string]$msg) {
 try {
     Add-Type -AssemblyName System.Windows.Forms
     Add-Type -AssemblyName System.Drawing
-    Write-Log '--- Avvio widget ---'
+    Write-Log '--- Widget start ---'
 
     # Barra di avanzamento arrotondata custom
     if (-not ('OcWidget.UsageBar' -as [type])) {
@@ -65,7 +65,7 @@ namespace OcWidget {
 
     $created = $false
     $mutex = New-Object System.Threading.Mutex($true, 'Local\OpenCodeUsageTrayWidget', [ref]$created)
-    if (-not $created) { Write-Log 'Istanza gia attiva, esco'; exit }
+    if (-not $created) { Write-Log 'Instance already running, exiting'; exit }
 
     $authPath = Join-Path $env:USERPROFILE '.local\share\opencode\auth.json'
 
@@ -125,13 +125,13 @@ namespace OcWidget {
             $script:lastUsage = $u
             $script:lastUpdate = Get-Date
             $script:ok = $true
-            Write-Log "Aggiornato: 5h $($u.rolling.percent)% sett $($u.weekly.percent)% mese $($u.monthly.percent)%"
+            Write-Log "Updated: 5h $($u.rolling.percent)% weekly $($u.weekly.percent)% monthly $($u.monthly.percent)%"
         }
         catch {
             Set-IconState 0 $true
-            $script:icon.Text = 'OpenCode Go - Errore di connessione'
+            $script:icon.Text = 'OpenCode Go - Connection error'
             $script:ok = $false
-            Write-Log ("ERRORE update: " + $_.Exception.Message)
+            Write-Log ("UPDATE ERROR: " + $_.Exception.Message)
         }
     }
 
@@ -221,7 +221,7 @@ namespace OcWidget {
 
             $updStr = $script:lastUpdate.ToString('HH:mm')
             $lblUpd = New-Object System.Windows.Forms.Label
-            $lblUpd.Text = "agg $updStr"
+            $lblUpd.Text = "upd $updStr"
             $lblUpd.Font = New-Object System.Drawing.Font('Segoe UI', 8)
             $lblUpd.ForeColor = $fgMuted
             $lblUpd.BackColor = $bgColor
@@ -230,13 +230,13 @@ namespace OcWidget {
             $lblUpd.TextAlign = 'MiddleRight'
             $f.Controls.Add($lblUpd)
 
-            Add-FlyoutRow $f 52  '5 ore'       $u.rolling
+            Add-FlyoutRow $f 52  '5 hours'       $u.rolling
             Add-FlyoutRow $f 110 'Settimanale' $u.weekly
             Add-FlyoutRow $f 168 'Mensile'     $u.monthly
         }
         else {
             $errLbl = New-Object System.Windows.Forms.Label
-            $errLbl.Text = "Impossibile contattare il server."
+            $errLbl.Text = "Could not reach the server."
             $errLbl.Font = New-Object System.Drawing.Font('Segoe UI', 9.5)
             $errLbl.ForeColor = $fgMuted
             $errLbl.BackColor = $bgColor
@@ -255,7 +255,7 @@ namespace OcWidget {
         $script:flyout = $f
         $f.Show()
         $f.Activate()
-        Write-Log 'Flyout mostrato'
+        Write-Log 'Flyout shown'
     }
 
     $context = New-Object System.Windows.Forms.ApplicationContext
@@ -265,19 +265,19 @@ namespace OcWidget {
     $icon.Visible = $true
     $script:icon = $icon
     Set-IconState 0
-    Write-Log 'NotifyIcon creato e visibile'
+    Write-Log 'NotifyIcon created and visible'
 
     $menu = New-Object System.Windows.Forms.ContextMenuStrip
-    $itemRefresh = $menu.Items.Add('Aggiorna')
+    $itemRefresh = $menu.Items.Add('Refresh')
     $itemRefresh.Add_Click({ Update-Widget })
-    $itemDetails = $menu.Items.Add('Dettagli')
+    $itemDetails = $menu.Items.Add('Details')
     $itemDetails.Add_Click({ Show-Flyout })
-    $itemConsole = $menu.Items.Add('Apri Console')
+    $itemConsole = $menu.Items.Add('Open Console')
     $itemConsole.Add_Click({ Start-Process 'https://opencode.ai/auth' })
     [void]$menu.Items.Add((New-Object System.Windows.Forms.ToolStripSeparator))
-    $itemExit = $menu.Items.Add('Esci')
+    $itemExit = $menu.Items.Add('Exit')
     $itemExit.Add_Click({
-        Write-Log 'Uscita richiesta'
+        Write-Log 'Exit requested'
         $timer.Stop()
         $icon.Visible = $false
         $icon.Dispose()
@@ -296,10 +296,13 @@ namespace OcWidget {
     $timer.Start()
 
     Update-Widget
-    Write-Log 'Avvio message loop'
+    Write-Log 'Starting message loop'
     [System.Windows.Forms.Application]::Run($context)
-    Write-Log 'Message loop terminato'
+    Write-Log 'Message loop ended'
 }
 catch {
-    Write-Log ("ERRORE FATALE: " + $_.Exception.Message + " | " + $_.InvocationInfo.PositionMessage)
+    Write-Log ("FATAL ERROR: " + $_.Exception.Message + " | " + $_.InvocationInfo.PositionMessage)
 }
+
+
+
